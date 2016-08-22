@@ -25,7 +25,7 @@ npm install ritter-jekyll
 
 ## Author
 
-Ken Dale ken@kendaleiv.com https://github.com/ritterim
+Ritter Insurance Marketing https://github.com/ritterim
 
 ## License
 

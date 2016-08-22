@@ -29,8 +29,7 @@
     "patch": "pmm patch"
   },
   "author": {
-    "name": "Ken Dale",
-    "email": "ken@kendaleiv.com",
+    "name": "Ritter Insurance Marketing",
     "url": "https://github.com/ritterim"
   },
   "pre-commit": [

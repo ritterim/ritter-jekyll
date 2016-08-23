@@ -3,5 +3,8 @@
   "parser": "babel-eslint",
   "env": {
     "node": true
+  },
+  "rules": {
+    "no-console": "off"
   }
 }

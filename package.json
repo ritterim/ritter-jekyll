@@ -7,7 +7,8 @@
     "lib/"
   ],
   "keywords": [
-    "ritter","jekyll"
+    "ritter",
+    "jekyll"
   ],
   "license": "MIT",
   "repository": {
@@ -21,6 +22,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "lint": "eslint src test",
     "test": "ava --require babel-core/register",
+    "integration-test": "npm run build && node ./lib/index.js",
     "validate": "npm run lint && npm test",
     "prepare": "npm run build && npm run validate && npm run check",
     "pp": "npm run prepare",
@@ -35,7 +37,15 @@
   "pre-commit": [
     "validate"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "glob": "^7.0.5",
+    "imagemin": "^5.2.2",
+    "imagemin-gifsicle": "^5.1.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-optipng": "^5.2.0",
+    "imagemin-svgo": "^5.1.0",
+    "jpeg-recompress-bin": "^3.0.1"
+  },
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-cli": "^6.5.1",

@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import RecompressJpegs from './recompress-jpegs';
 import ImageMinifier from './image-minifier';
 

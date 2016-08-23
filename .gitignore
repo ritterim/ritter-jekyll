@@ -1,6 +1,6 @@
 # Custom
 test/.temp
-lib/
+/lib
 
 # Logs
 logs

@@ -4,12 +4,15 @@ setlocal
 
 :Build
 call npm install
-call npm run validate
+if %ERRORLEVEL% neq 0 goto BuildFail
 
+call npm run build
+if %ERRORLEVEL% neq 0 goto BuildFail
+
+call npm run validate
 if %ERRORLEVEL% neq 0 goto BuildFail
 
 call npm pack
-
 if %ERRORLEVEL% neq 0 goto BuildFail
 
 goto BuildSuccess

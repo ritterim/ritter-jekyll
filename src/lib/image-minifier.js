@@ -6,7 +6,7 @@ import imageminSvgo from 'imagemin-svgo';
 
 export default class ImageMinifier {
   run(path) {
-    imagemin([`${path}/**`], path, {
+    imagemin([`${path}/*`], path, {
       plugins: [
         imageminGifsicle(),
         imageminJpegtran(),

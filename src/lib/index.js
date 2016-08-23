@@ -9,4 +9,4 @@ new RecompressJpegs().run('_site/**/*.jpg');
 console.log('\n--------------------------------------------------\n');
 
 console.log('Running image minifier...\n');
-new ImageMinifier().run('_site');
+new ImageMinifier().run('_site/images');

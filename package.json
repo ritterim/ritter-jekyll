@@ -17,6 +17,7 @@
   },
   "scripts": {
     "imagemin-site-images": "imagemin _site/images/* -out-dir=_site/images",
+    "markdown-proofing": "markdown-proofing **/_posts/**/*.md",
     "audit": "nsp check package",
     "build": "babel -d ./ ./src",
     "check": "npm run audit && npm outdated --depth 0",
@@ -37,6 +38,7 @@
     "glob": "^7.0.5",
     "imagemin-cli": "^3.0.0",
     "jpeg-recompress-bin": "^3.0.1",
+    "markdown-proofing": "^0.2.0",
     "npm-run": "^4.1.0"
   },
   "devDependencies": {

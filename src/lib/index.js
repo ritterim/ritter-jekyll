@@ -15,3 +15,9 @@ console.log('\n--------------------------------------------------\n');
 console.log('Running imagemin-cli...\n');
 const imagemin = npmRun.execSync('npm run imagemin-site-images');
 console.log(imagemin.toString());
+
+console.log('\n--------------------------------------------------\n');
+
+console.log('Running markdown-proofing...\n');
+const markdownProofing = npmRun.execSync('npm run markdown-proofing');
+console.log(markdownProofing.toString());

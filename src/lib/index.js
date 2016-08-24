@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import RecompressJpegs from './recompress-jpegs';
-import ImageMinifier from './image-minifier';
+import npmRun from 'npm-run';
 
 console.log(`ritter-jekyll ${require('../package.json').version}`);
 
@@ -12,5 +12,6 @@ new RecompressJpegs().run('_site/**/*.jpg');
 
 console.log('\n--------------------------------------------------\n');
 
-console.log('Running image minifier...\n');
-new ImageMinifier().run('_site/images');
+console.log('Running imagemin-cli...\n');
+const imagemin = npmRun.execSync('npm run imagemin-site-images');
+console.log(imagemin.toString());

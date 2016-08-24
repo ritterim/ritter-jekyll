@@ -1,10 +1,10 @@
-import glob from 'glob';
+import globby from 'globby';
 import jpegRecompress from 'jpeg-recompress-bin';
 const execFileSync = require('child_process').execFileSync;
 
 export default class RecompressJpegs {
   run(path) {
-    const files = glob.sync(path, {});
+    const files = globby.sync(path);
 
     files.forEach(function(file) {
       console.log(file);

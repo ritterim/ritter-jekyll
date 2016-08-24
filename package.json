@@ -33,7 +33,6 @@
     "validate"
   ],
   "dependencies": {
-    "glob": "^7.0.5",
     "globby": "^6.0.0",
     "imagemin-cli": "^3.0.0",
     "jpeg-recompress-bin": "^3.0.1",

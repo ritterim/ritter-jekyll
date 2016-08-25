@@ -1,6 +1,6 @@
 {
   "name": "ritter-jekyll",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The Ritter Jekyll Experience",
   "bin": "lib/index.js",
   "files": [
@@ -16,10 +16,8 @@
     "url": "https://github.com/ritterim/ritter-jekyll"
   },
   "scripts": {
-    "imagemin-site-images": "imagemin _site/images/* -out-dir=_site/images",
-    "markdown-proofing": "markdown-proofing **/_posts/**/*.md",
     "audit": "nsp check package",
-    "build": "babel -d ./ ./src",
+    "build": "babel -d ./ ./src && shx cp ./src/lib/*.json ./lib/",
     "check": "npm run audit && npm outdated --depth 0",
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "lint": "eslint src test",
@@ -51,6 +49,7 @@
     "eslint": "^3.3.1",
     "nsp": "^2.2.0",
     "nyc": "^8.1.0",
-    "pre-commit": "^1.1.2"
+    "pre-commit": "^1.1.2",
+    "shx": "^0.1.4"
   }
 }

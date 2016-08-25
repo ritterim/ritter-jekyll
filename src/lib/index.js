@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+import path from 'path';
 import RecompressJpegs from './recompress-jpegs';
 import npmRun from 'npm-run';
 
@@ -13,13 +14,16 @@ new RecompressJpegs().run('_site/**/*.jpg');
 console.log('\n--------------------------------------------------\n');
 
 console.log('Running imagemin-cli...\n');
-const imagemin = npmRun.execSync('npm run imagemin-site-images');
+const imagemin = npmRun.execSync('imagemin _site/images/* -out-dir=_site/images');
 console.log(imagemin.toString());
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('\n--------------------------------------------------\n');
 
   console.log('Running markdown-proofing...\n');
-  const markdownProofing = npmRun.execSync('npm run markdown-proofing');
+  const configurationPath = path.resolve(__dirname, './markdown-proofing-configuration.json');
+  const filesGlob = path.join(process.cwd(), '**/_posts/*.+(md|markdown)');
+  const markdownProofing = npmRun.execSync(
+    `markdown-proofing -c "${configurationPath}" "${filesGlob}"`);
   console.log(markdownProofing.toString());
 }

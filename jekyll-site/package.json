@@ -1,0 +1,13 @@
+{
+  "name": "jekyll-site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example Jekyll site for testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ritter-jekyll-for-testing": "node ./node_modules/ritter-jekyll/lib/index.js"
+  },
+  "author": "Ritter Insurance Marketing",
+  "license": "MIT"
+}

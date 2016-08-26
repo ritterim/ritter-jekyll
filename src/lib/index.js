@@ -1,10 +1,17 @@
 #! /usr/bin/env node
 
 import path from 'path';
+import PostUrlValidator from './post-url-validator';
 import RecompressJpegs from './recompress-jpegs';
 import npmRun from 'npm-run';
 
 console.log(`ritter-jekyll ${require('../package.json').version}`);
+
+console.log('\n--------------------------------------------------\n');
+
+console.log('Validating post urls...\n');
+new PostUrlValidator().validate('_posts/*.md');
+console.log('urls are valid!');
 
 console.log('\n--------------------------------------------------\n');
 

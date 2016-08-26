@@ -1,6 +1,6 @@
 {
   "name": "ritter-jekyll",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "The Ritter Jekyll Experience",
   "bin": "lib/index.js",
   "files": [
@@ -33,7 +33,7 @@
     "validate"
   ],
   "dependencies": {
-    "glob": "^7.0.5",
+    "globby": "^6.0.0",
     "imagemin-cli": "^3.0.0",
     "jpeg-recompress-bin": "^3.0.1",
     "markdown-proofing": "^0.2.0",

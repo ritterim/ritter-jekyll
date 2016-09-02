@@ -6,9 +6,7 @@ The Ritter Jekyll Experience
 
 ## Features
 
-- Process images for all compiled *_site* assets
-  - Recompress JPEG images using [jpeg-recompress-bin](https://www.npmjs.com/package/jpeg-recompress-bin)
-  - Run [imagemin](https://www.npmjs.com/package/imagemin)
+- Process images in *_site/images* folder
 - Validate post urls
 
 ## Usage

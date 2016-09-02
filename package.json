@@ -22,7 +22,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "lint": "eslint src test",
     "test": "ava --require babel-core/register",
-    "integration-test": "npm run build && node ./lib/index.js",
+    "integration-test": "node ./integration-test.js",
     "validate": "npm run lint && npm test"
   },
   "author": {
@@ -54,6 +54,7 @@
     "nsp": "^2.2.0",
     "nyc": "^8.1.0",
     "pre-commit": "^1.1.2",
+    "shelljs": "^0.7.4",
     "shx": "^0.1.4"
   }
 }

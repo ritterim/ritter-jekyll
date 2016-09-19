@@ -4,6 +4,7 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminGifsicle from 'imagemin-gifsicle';
 import imageminOptipng from 'imagemin-optipng';
 import imageminSvgo from 'imagemin-svgo';
+import winston from 'winston';
 
 export default class ImageProcessor {
   run(path) {
@@ -16,7 +17,7 @@ export default class ImageProcessor {
         imageminSvgo()
       ]
     }).then(files => {
-      console.log(files.map(x => x.path).join('\n'));
+      winston.info(files.map(x => x.path).join('\n'));
     });
   }
 }

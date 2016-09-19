@@ -25,3 +25,47 @@ test('validate should reject promise for invalid links', t => {
       t.pass();
     });
 });
+
+test('should log warning for HTTP links', t => {
+  const winston = require('winston');
+  require('winston-memory').Memory;
+
+  const logger = new (winston.Logger)({
+    transports: [
+      new (winston.transports.Memory)()
+    ]
+  });
+
+  return new LinkChecker(logger)
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-non-https-links.md'))
+    .then(() => {
+      const writeOutput = logger.transports.memory.writeOutput;
+      const errorOutput = logger.transports.memory.errorOutput;
+
+      t.is(writeOutput.length, 2);
+      t.is(errorOutput.length, 0);
+
+      t.is(writeOutput.filter(x => x.match(/warn: Consider using HTTPS for http:/g)).length, 2);
+    });
+});
+
+test('should not log warning for HTTPS links', t => {
+  const winston = require('winston');
+  require('winston-memory').Memory;
+
+  const logger = new (winston.Logger)({
+    transports: [
+      new (winston.transports.Memory)()
+    ]
+  });
+
+  return new LinkChecker(winston)
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-valid-links.md'))
+    .then(() => {
+      const writeOutput = logger.transports.memory.writeOutput;
+      const errorOutput = logger.transports.memory.errorOutput;
+
+      t.is(writeOutput.length, 0);
+      t.is(errorOutput.length, 0);
+    });
+});

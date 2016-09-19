@@ -4,6 +4,10 @@ import globby from 'globby';
 import markdownLinkExtractor from 'markdown-link-extractor';
 
 export default class LinkChecker {
+  constructor(logger = null) {
+    this.logger = logger || require('winston');
+  }
+
   validate(path) {
     const files = globby.sync(path);
     let links = [];
@@ -22,6 +26,12 @@ export default class LinkChecker {
     if (links.length === 0) {
       return Promise.resolve();
     }
+
+    links.forEach(link => {
+      if (/^http:/i.test(link)) {
+        this.logger.warn(`Consider using HTTPS for ${link}`);
+      }
+    });
 
     return new Promise((resolve, reject) => {
       const results = [];

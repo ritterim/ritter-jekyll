@@ -15,9 +15,10 @@ export default class LinkChecker {
     // Get links from files
     files.forEach(file => {
       const text = fs.readFileSync(file, 'utf8');
-      const textLinks = markdownLinkExtractor(text);
+      const textHttpLinks = markdownLinkExtractor(text)
+        .filter(x => /^http/i.test(x));
 
-      links.push(...textLinks);
+      links.push(...textHttpLinks);
     });
 
     // Get distinct links, normalizing to lowercase

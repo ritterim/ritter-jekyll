@@ -39,11 +39,15 @@ new LinkChecker().validate(postsGlob)
     });
   })
   .catch(err => {
-    const errors = err
-      .filter(e => e.broken)
-      .map(e => `${e.brokenReason}: ${e.url.original}`);
+    if (Array.isArray(err)) {
+      const errors = err
+        .filter(e => e.broken)
+        .map(e => `${e.brokenReason}: ${e.url.original}`);
 
-    throw new Error(`${errors.length} broken link issue${errors.length === 1 ? '' : 's'}:\n\n`
-      + errors.join('\n')
-      + '\n');
+      throw new Error(`${errors.length} broken link issue${errors.length === 1 ? '' : 's'}:\n\n`
+        + errors.join('\n')
+        + '\n');
+    } else {
+      throw new Error(err);
+    }
   });

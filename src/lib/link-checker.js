@@ -27,21 +27,17 @@ export default class LinkChecker {
       return Promise.resolve();
     }
 
-    links.forEach(link => {
-      if (/^http:/i.test(link)) {
-        this.logger.warn(`Consider using HTTPS for ${link}`);
-      }
-    });
-
-    return new Promise((resolve, reject) => {
+    const brokenLinkCheckerPromise = new Promise((resolve, reject) => {
       const results = [];
+
+      let enqueueErrorsCount = 0;
 
       const urlChecker = new brokenLinkChecker.UrlChecker({ }, {
         link: (result) => {
           results.push(result);
 
-          if (results.length === links.length) {
-            if (results.some(result => result.broken)) {
+          if (results.length + enqueueErrorsCount === links.length) {
+            if (results.some(x => x.broken)) {
               reject(results);
             } else {
               resolve(results);
@@ -51,8 +47,56 @@ export default class LinkChecker {
       });
 
       links.forEach(link => {
-        urlChecker.enqueue(link);
+        const enqueueResult = urlChecker.enqueue(link);
+
+        if (enqueueResult instanceof Error) {
+          enqueueErrorsCount++;
+        }
       });
     });
+
+    const nonSecureLinkCheckerPromise = new Promise((resolve) => {
+      const results = [];
+
+      const nonSecureLinks = links.filter(link => /^http:/i.test(link));
+
+      if (nonSecureLinks.length === 0) {
+        resolve();
+      }
+
+      let enqueueErrorsCount = 0;
+
+      const urlChecker = new brokenLinkChecker.UrlChecker({ }, {
+        link: (result) => {
+          results.push(result);
+
+          if (results.length + enqueueErrorsCount === nonSecureLinks.length) {
+            results
+              .filter(x => !x.broken)
+              .forEach(x => {
+                const originalHttpLink = x.url.original.replace(/^https:/i, 'http:');
+
+                this.logger.warn(`Consider using HTTPS for ${originalHttpLink}`);
+              });
+
+            resolve(results);
+          }
+        }
+      });
+
+      nonSecureLinks.forEach(link => {
+        const httpsLink = link.replace(/^http:/i, 'https:');
+        const enqueueResult = urlChecker.enqueue(httpsLink);
+
+        if (enqueueResult instanceof Error) {
+          enqueueErrorsCount++;
+        }
+      });
+    });
+
+    return Promise.all([
+      nonSecureLinkCheckerPromise,
+      brokenLinkCheckerPromise
+    ]);
   }
 }

@@ -20,34 +20,32 @@ winston.info('Validating post urls...');
 new PostUrlValidator().validate(postsGlob);
 winston.info('urls are valid!');
 
-winston.info('Running link checker...');
-new LinkChecker().validate(postsGlob)
-  .then(linkCheckerRes => {
-    winston.info(`${linkCheckerRes.length} ${linkCheckerRes.length === 1 ? 'link is' : 'links are'} valid!`);
+winston.info('Running image processor...');
+new ImageProcessor().run(`${_siteFolder}/images`).then(() => {
+  if (process.env.NODE_ENV !== 'production') {
+    winston.info('Running markdown-proofing...');
+    const configurationPath = path.resolve(__dirname, './markdown-proofing-configuration.json');
+    const markdownProofing = npmRun.execSync(
+      `markdown-proofing -c "${configurationPath}" "${postsGlob}"`);
+    winston.info(markdownProofing.toString());
 
-    winston.info('Running image processor...');
-    new ImageProcessor().run(`${_siteFolder}/images`).then(() => {
+    winston.info('Running link checker...');
+    new LinkChecker().validate(postsGlob)
+      .then(linkCheckerRes => {
+        winston.info(`${linkCheckerRes.length} ${linkCheckerRes.length === 1 ? 'link is' : 'links are'} valid!`);
+      })
+      .catch(err => {
+        if (Array.isArray(err)) {
+          const errors = err
+            .filter(e => e.broken)
+            .map(e => `${e.brokenReason}: ${e.url.original}`);
 
-      if (process.env.NODE_ENV !== 'production') {
-
-        winston.info('Running markdown-proofing...');
-        const configurationPath = path.resolve(__dirname, './markdown-proofing-configuration.json');
-        const markdownProofing = npmRun.execSync(
-          `markdown-proofing -c "${configurationPath}" "${postsGlob}"`);
-        winston.info(markdownProofing.toString());
-      }
-    });
-  })
-  .catch(err => {
-    if (Array.isArray(err)) {
-      const errors = err
-        .filter(e => e.broken)
-        .map(e => `${e.brokenReason}: ${e.url.original}`);
-
-      throw new Error(`${errors.length} broken link issue${errors.length === 1 ? '' : 's'}:\n\n`
-        + errors.join('\n')
-        + '\n');
-    } else {
-      throw new Error(err);
-    }
-  });
+          throw new Error(`${errors.length} broken link issue${errors.length === 1 ? '' : 's'}:\n\n`
+            + errors.join('\n')
+            + '\n');
+        } else {
+          throw new Error(err);
+        }
+      });
+  }
+});

@@ -38,10 +38,12 @@ export default class LinkChecker {
           results.push(result);
 
           if (results.length + enqueueErrorsCount === links.length) {
-            if (results.some(x => x.broken)) {
-              reject(results);
+            const filteredResults = results.filter(x => x.brokenReason !== 'BLC_UNKNOWN');
+
+            if (filteredResults.some(x => x.broken)) {
+              reject(filteredResults);
             } else {
-              resolve(results);
+              resolve(filteredResults);
             }
           }
         }

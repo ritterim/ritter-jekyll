@@ -3,6 +3,7 @@
 import path from 'path';
 import npmRun from 'npm-run';
 import winston from 'winston';
+import PostContentValidator from './post-content-validator';
 import PostUrlValidator from './post-url-validator';
 import ImageProcessor from './image-processor';
 import LinkChecker from './link-checker';
@@ -19,6 +20,10 @@ winston.info(`ritter-jekyll ${require('../package.json').version}`);
 winston.info('Validating post urls...');
 new PostUrlValidator().validate(postsGlob);
 winston.info('urls are valid!');
+
+winston.info('Validating post contents...');
+new PostContentValidator().validate(postsGlob);
+winston.info('post content is valid!');
 
 winston.info('Running image processor...');
 new ImageProcessor().run(`${_siteFolder}/images`).then(() => {

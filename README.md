@@ -8,6 +8,7 @@ The Ritter Jekyll Experience
 
 - Process images in *_site/images* folder
 - Validate post urls
+- Validate post contents
 - Validate links inside posts (including images)
 
 ## Usage

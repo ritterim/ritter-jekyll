@@ -6,7 +6,7 @@ The Ritter Jekyll Experience
 
 ## Features
 
-- Process images in *_site/images* folder
+- Process images in __site/images/**_
 - Validate post urls
 - Validate links inside posts (including images)
 

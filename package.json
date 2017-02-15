@@ -1,6 +1,6 @@
 {
   "name": "ritter-jekyll",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "The Ritter Jekyll Experience",
   "bin": "lib/index.js",
   "files": [

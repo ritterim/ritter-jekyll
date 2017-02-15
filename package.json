@@ -21,9 +21,15 @@
     "check": "npm run audit && npm outdated --depth 0",
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "lint": "eslint src test",
-    "test": "ava --require babel-core/register",
+    "test": "ava",
+    "test:watch": "ava --watch",
     "integration-test": "npm run build && node ./lib/index.js",
     "validate": "npm run lint && npm test"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   },
   "author": {
     "name": "Ritter Insurance Marketing",
@@ -47,7 +53,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
+    "ava": "^0.18.1",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
     "babel-eslint": "^6.0.0",

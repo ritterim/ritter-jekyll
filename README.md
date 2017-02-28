@@ -9,7 +9,6 @@ The Ritter Jekyll Experience
 - Process images in __site/images/**_
 - Validate post urls
 - Validate post contents
-- Validate links inside posts (including images)
 
 ## Usage
 

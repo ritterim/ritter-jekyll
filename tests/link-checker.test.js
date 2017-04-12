@@ -1,32 +1,29 @@
-import test from 'ava';
 import path from 'path';
 
 import LinkChecker from '../src/lib/link-checker';
 
-test('validate should resolve promise no files', t => {
-  t.notThrows(() => new LinkChecker()
-    .validate(path.resolve(__dirname, './fixtures/**.not-md')));
+test('validate should resolve promise no files', () => {
+  expect(() => new LinkChecker()
+    .validate(path.resolve(__dirname, './fixtures/**.not-md'))).not.toThrow();
 });
 
-test('validate should resolve promise for no links', t => {
-  t.notThrows(() => new LinkChecker()
-    .validate(path.resolve(__dirname, './fixtures/2000-01-01-valid-post-url.md')));
+test('validate should resolve promise for no links', () => {
+  expect(() => new LinkChecker()
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-valid-post-url.md'))).not.toThrow();
 });
 
-test('validate should resolve promise for valid links', t => {
-  t.notThrows(() => new LinkChecker()
-    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-valid-links.md')));
+test('validate should resolve promise for valid links', () => {
+  expect(() => new LinkChecker()
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-valid-links.md'))).not.toThrow();
 });
 
-test('validate should reject promise for invalid links', t => {
+test('validate should reject promise for invalid links', () => {
   return new LinkChecker()
     .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-invalid-links.md'))
-    .catch(() => {
-      t.pass();
-    });
+    .catch(() => {});
 });
 
-test('should log warning for HTTP links', t => {
+test('should log warning for HTTP links', () => {
   const winston = require('winston');
   require('winston-memory').Memory;
 
@@ -42,14 +39,16 @@ test('should log warning for HTTP links', t => {
       const writeOutput = logger.transports.memory.writeOutput;
       const errorOutput = logger.transports.memory.errorOutput;
 
-      t.is(writeOutput.length, 2);
-      t.is(errorOutput.length, 0);
+      expect(writeOutput.length).toBe(2);
+      expect(errorOutput.length).toBe(0);
 
-      t.is(writeOutput.filter(x => x.match(/warn: Consider using HTTPS for http:/g)).length, 2);
+      expect(
+        writeOutput.filter(x => x.match(/warn: Consider using HTTPS for http:/g)).length
+      ).toBe(2);
     });
 });
 
-test('should not log warning for HTTPS links', t => {
+test('should not log warning for HTTPS links', () => {
   const winston = require('winston');
   require('winston-memory').Memory;
 
@@ -65,7 +64,7 @@ test('should not log warning for HTTPS links', t => {
       const writeOutput = logger.transports.memory.writeOutput;
       const errorOutput = logger.transports.memory.errorOutput;
 
-      t.is(writeOutput.length, 0);
-      t.is(errorOutput.length, 0);
+      expect(writeOutput.length).toBe(0);
+      expect(errorOutput.length).toBe(0);
     });
 });

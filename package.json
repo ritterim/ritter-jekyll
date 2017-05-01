@@ -43,8 +43,6 @@
     "imagemin-optipng": "^5.2.0",
     "imagemin-svgo": "^5.2.0",
     "markdown-link-extractor": "^1.1.0",
-    "markdown-proofing": "^0.2.0",
-    "npm-run": "^4.1.0",
     "winston": "^2.2.0",
     "winston-timer": "^0.1.0"
   },

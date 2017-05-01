@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
 import path from 'path';
-import npmRun from 'npm-run';
 import winston from 'winston';
 
 const winstonTimerLevel = 'info';
@@ -36,17 +35,7 @@ winston.start_log('Running image processor');
 new ImageProcessor().run(`${_siteFolder}/images`)
   .then(() => {
     winston.stop_log('Running image processor', winstonTimerLevel);
-  })
-  .then(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      runWithTimings('Running markdown-proofing', () => {
-        const configurationPath = path.resolve(__dirname, './markdown-proofing-configuration.json');
-        const markdownProofing = npmRun.execSync(
-          `markdown-proofing -c "${configurationPath}" "${postsGlob}"`);
-        winston.info(markdownProofing.toString());
-      });
-    }
-});
+  });
 
 function runWithTimings(msg, fn) {
   winston.start_log(msg);

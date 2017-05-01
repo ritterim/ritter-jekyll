@@ -1,6 +1,6 @@
 {
   "name": "ritter-jekyll",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The Ritter Jekyll Experience",
   "bin": "lib/index.js",
   "files": [
@@ -45,7 +45,8 @@
     "markdown-link-extractor": "^1.1.0",
     "markdown-proofing": "^0.2.0",
     "npm-run": "^4.1.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "winston-timer": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",

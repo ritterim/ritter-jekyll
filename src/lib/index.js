@@ -31,11 +31,13 @@ runWithTimings('Validating post contents', () => {
   new PostContentValidator().validate(postsGlob);
 });
 
-winston.start_log('Running image processor');
-new ImageProcessor().run(`${_siteFolder}/images`)
-  .then(() => {
-    winston.stop_log('Running image processor', winstonTimerLevel);
-  });
+if (process.env.NODE_ENV === 'production') {
+  winston.start_log('Running image processor');
+  new ImageProcessor().run(`${_siteFolder}/images`)
+    .then(() => {
+      winston.stop_log('Running image processor', winstonTimerLevel);
+    });
+}
 
 function runWithTimings(msg, fn) {
   winston.start_log(msg);

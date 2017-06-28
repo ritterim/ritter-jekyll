@@ -14,7 +14,7 @@ import PostContentValidator from './post-content-validator';
 import PostUrlValidator from './post-url-validator';
 import ImageProcessor from './image-processor';
 
-const postsGlob = path.join(process.cwd(), '**/_posts/*.+(md|markdown)');
+const postsGlob = path.join(process.cwd(), '**/_posts/*');
 const _siteFolder = path.join(process.cwd(), '/_site');
 
 process.on('unhandledRejection', (reason) => {

@@ -7,6 +7,11 @@ test('validate should not throw for no files', () => {
     .validate(path.resolve(__dirname, './fixtures/**.not-md'))).not.toThrow();
 });
 
+test('validate should throw for invalid extensionless file', () => {
+  expect(() => new PostUrlValidator()
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-no-file-extension'))).toThrow();
+});
+
 test('validate should throw for invalid', () => {
   expect(() => new PostUrlValidator()
     .validate(path.resolve(__dirname, './fixtures/**/*.md'))).toThrow();

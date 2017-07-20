@@ -1,6 +1,6 @@
 {
   "name": "ritter-jekyll",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "The Ritter Jekyll Experience",
   "bin": "lib/index.js",
   "files": [
@@ -35,6 +35,7 @@
   ],
   "dependencies": {
     "broken-link-checker": "^0.7.3",
+    "front-matter": "^2.1.2",
     "globby": "^6.0.0",
     "imagemin": "^5.2.2",
     "imagemin-gifsicle": "^5.1.0",

@@ -27,3 +27,11 @@ test('validate should not throw for valid links', () => {
   expect(() => new PostContentValidator()
     .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-valid-links.md'))).not.toThrow();
 });
+
+test('validate should throw when post date does not match filename date', () => {
+  const fixturesPath = __dirname.replace(/\\/g, '/') + '/fixtures';
+
+  expect(() => new PostContentValidator()
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-non-matching-yaml-date.md')))
+    .toThrow(`${fixturesPath}/2000-01-01-post-with-non-matching-yaml-date.md post date (2010-01-01) does not match the filename date (2000-01-01).`);
+});

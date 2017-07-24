@@ -35,3 +35,8 @@ test('validate should throw when post date does not match filename date', () => 
     .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-non-matching-yaml-date.md')))
     .toThrow(`${fixturesPath}/2000-01-01-post-with-non-matching-yaml-date.md post date (2010-01-01) does not match the filename date (2000-01-01).`);
 });
+
+test('validate should not throw when post contains invalid date', () => {
+  expect(() => new PostContentValidator()
+    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-invalid-yaml-date.md'))).not.toThrow();
+});

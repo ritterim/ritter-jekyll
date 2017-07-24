@@ -26,9 +26,10 @@ export default class PostContentValidator {
       const post = frontMatter(text);
 
       if (post.attributes.date) {
-        const postDateOnly = post.attributes.date.match(/^\d{4}-\d{2}-\d{2}/)[0];
+        const postDateMatch = post.attributes.date.match(/^\d{4}-\d{2}-\d{2}/);
+        const postDateOnly = postDateMatch ? postDateMatch[0] : null;
 
-        if (postDateOnly !== filenameDate) {
+        if (postDateOnly && postDateOnly !== filenameDate) {
           errors.push(file
             + ` post date (${postDateOnly})`
             + ` does not match the filename date (${filenameDate}).`);

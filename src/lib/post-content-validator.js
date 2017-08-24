@@ -22,6 +22,17 @@ export default class PostContentValidator {
           + '\nRemove them or replace them with &#124;\n');
       }
 
+      // Look for problematic styled quotes in links
+      // [test]({% post_url 2017-01-01-test %} “test”)
+      const styledQuotesLinks = text.match(/\[.*\]\([\w:\/.]*[\s|\w]*[“|”].*\)/gi);
+
+      if (styledQuotesLinks) {
+        errors.push(file
+          + ' contains the following problematic styled quotes links:\n\n'
+          + styledQuotesLinks.join('\n')
+          + '\n');
+      }
+
       // Ensure post date matches filename date
       const filenameDate = file.match(/\d{4}-\d{2}-\d{2}/)[0];
       const post = frontMatter(text);

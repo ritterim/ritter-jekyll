@@ -17,10 +17,14 @@ test('validate should throw for `|` link issues', () => {
 [abc](https://example.org "A | B")
 [def](https://example.org "C | D")
 
+Remove them or replace them with &#124;
+
 ${fixturesPath}/2000-01-01-post-with-problematic-vertical-bar-links-2.md contains the following problematic vertical bar links:
 
 [ghi](https://example.org "G | H")
-[jkl](https://example.org "I | J")`);
+[jkl](https://example.org "I | J")
+
+Remove them or replace them with &#124;`);
 });
 
 test('validate should not throw for valid links', () => {

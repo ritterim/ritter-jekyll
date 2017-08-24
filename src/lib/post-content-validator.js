@@ -18,7 +18,8 @@ export default class PostContentValidator {
         errors.push(file
           + ' contains the following problematic vertical bar links:\n\n'
           + verticalBarProblematicLinks.join('\n')
-          + '\n');
+          + '\n'
+          + '\nRemove them or replace them with &#124;\n');
       }
 
       // Ensure post date matches filename date

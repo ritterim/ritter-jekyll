@@ -12,10 +12,8 @@ require('winston-timer')(winston, {
 
 import PostContentValidator from './post-content-validator';
 import PostUrlValidator from './post-url-validator';
-import ImageProcessor from './image-processor';
 
 const postsGlob = path.join(process.cwd(), '**/_posts/*');
-const _siteFolder = path.join(process.cwd(), '/_site');
 
 process.on('unhandledRejection', (reason) => {
   throw reason;
@@ -30,14 +28,6 @@ runWithTimings('Validating post urls', () => {
 runWithTimings('Validating post contents', () => {
   new PostContentValidator().validate(postsGlob);
 });
-
-if (process.env.NODE_ENV === 'production') {
-  winston.start_log('Running image processor');
-  new ImageProcessor().run(`${_siteFolder}/images`)
-    .then(() => {
-      winston.stop_log('Running image processor', winstonTimerLevel);
-    });
-}
 
 function runWithTimings(msg, fn) {
   winston.start_log(msg);

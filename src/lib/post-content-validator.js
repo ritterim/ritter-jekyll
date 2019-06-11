@@ -10,18 +10,6 @@ export default class PostContentValidator {
     files.forEach(file => {
       const text = fs.readFileSync(file, 'utf8');
 
-      // Look for problematic `|` character in
-      // [abc](https://example.org "A | B")
-      const verticalBarProblematicLinks = text.match(/\[.*\]\([\w:\/.]*\s*\".*\|.*\"\)/gi);
-
-      if (verticalBarProblematicLinks) {
-        errors.push(file
-          + ' contains the following problematic vertical bar links:\n\n'
-          + verticalBarProblematicLinks.join('\n')
-          + '\n'
-          + '\nRemove them or replace them with &#124;\n');
-      }
-
       // Look for problematic styled quotes in links
       // [test]({% post_url 2017-01-01-test %} “test”)
       const styledQuotesLinks = text.match(/\[.*\]\([\w:\/.]*[\s|\w]*[“|”].*\)/gi);

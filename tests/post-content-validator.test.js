@@ -7,26 +7,6 @@ test('validate should not throw for no files', () => {
     .validate(path.resolve(__dirname, './fixtures/**.not-md'))).not.toThrow();
 });
 
-test('validate should throw for `|` link issues', () => {
-  const fixturesPath = __dirname.replace(/\\/g, '/') + '/fixtures';
-
-  expect(() => new PostContentValidator()
-    .validate(path.resolve(__dirname, './fixtures/2000-01-01-post-with-problematic-vertical-bar-links*.md')))
-    .toThrow(`${fixturesPath}/2000-01-01-post-with-problematic-vertical-bar-links-1.md contains the following problematic vertical bar links:
-
-[abc](https://example.org "A | B")
-[def](https://example.org "C | D")
-
-Remove them or replace them with &#124;
-
-${fixturesPath}/2000-01-01-post-with-problematic-vertical-bar-links-2.md contains the following problematic vertical bar links:
-
-[ghi](https://example.org "G | H")
-[jkl](https://example.org "I | J")
-
-Remove them or replace them with &#124;`);
-});
-
 test('validate should throw for styled quotes link issues', () => {
   const fixturesPath = __dirname.replace(/\\/g, '/') + '/fixtures';
 

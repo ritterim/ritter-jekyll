@@ -12,7 +12,7 @@ export default class PostContentValidator {
 
       // Look for problematic styled quotes in links
       // [test]({% post_url 2017-01-01-test %} “test”)
-      const styledQuotesLinks = text.match(/\[.*\]\([\w:\/.]*[\s|\w]*[“|”].*\)/gi);
+      const styledQuotesLinks = text.match(/\[.*\]\([\w:/.]*[\s|\w]*[“|”].*\)/gi);
 
       if (styledQuotesLinks) {
         errors.push(file
